@@ -1,0 +1,26 @@
+html
+  head
+    title= title
+  body
+    h1= title
+    form(method='POST' action='/names')
+      label(for='fname') First Name
+      input(type='text' name='fname')
+      label(for='lname') Last Name
+      input(type='text' name='lname')
+      input(type='submit' name='submit' value='Add Name')
+      #namesList(style='padding-top: 1.2em;')
+        ul
+        each name in names
+          li #{name['fname'] + ' ' + name['lname']}
+            |  (
+            a(href='/names/' + name['_id']) edit
+            | )
+      #caveats(style='padding-top: 1.2em;')
+        h4 Caveats
+        ul
+          li No semantic validation is performed for First/Last Name strings.
+          li Minimal validation of HTTP request parameters (mere presence in query string or POST body) is performed.
+          li Due to the default read-after-write behavior of MongoDB, 
+            a(href='') refresh
+            |  this page if an expected insert/update is not reflected in the list. 
